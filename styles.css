@@ -467,10 +467,31 @@ button:hover,
   white-space: pre-wrap;
 }
 
-.summary-source {
-  margin: 0.55rem 0 0;
-  font-size: 0.84rem;
-  color: #667085;
+.summary-source-wrap {
+  margin: 0.65rem 0 0;
+}
+
+.summary-source-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.22rem 0.66rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border: 1px solid transparent;
+}
+
+.summary-source-badge--gemini {
+  color: #0f5132;
+  background: #e8f7ef;
+  border-color: #b7e4c7;
+}
+
+.summary-source-badge--fallback {
+  color: #7a2e0e;
+  background: #fff3e6;
+  border-color: #f7d9b8;
 }
 
 .summary-repos {

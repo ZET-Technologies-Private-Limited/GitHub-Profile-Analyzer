@@ -209,7 +209,27 @@ function App() {
         }),
       })
 
-      const result = await response.json()
+      const contentType = response.headers.get("content-type") || ""
+      const isJson = contentType.toLowerCase().includes("application/json")
+      const rawBody = await response.text()
+      let result = {}
+
+      if (isJson) {
+        try {
+          result = JSON.parse(rawBody || "{}")
+        } catch (_) {
+          throw new Error("Summary API returned invalid JSON. Please restart the backend and try again.")
+        }
+      } else {
+        result = { error: rawBody }
+      }
+
+      if (!isJson) {
+        throw new Error(
+          "Summary API returned HTML instead of JSON. If you are using static hosting, run the Node server with npm start or deploy the backend API.",
+        )
+      }
+
       if (!response.ok) throw new Error(result.error || "Failed to generate summary.")
 
       setSummary(result.summary || "No summary returned.")
@@ -221,7 +241,7 @@ function App() {
         showStatus(`AI summary generated for @${user.login}.`)
       }
     } catch (error) {
-      setSummary("Could not generate summary. Check server API key configuration.")
+      setSummary(error.message || "Could not generate summary.")
       setSummarySource("")
       setSummaryRepos([])
       showStatus(error.message || "Failed to generate AI summary.", true)
@@ -421,9 +441,15 @@ function App() {
               </div>
               <div className="summary-output">{summary}</div>
               {summarySource ? (
-                <p className="summary-source">
-                  Source: {summarySource === "gemini" ? "Gemini" : "Local fallback"}
-                </p>
+                <div className="summary-source-wrap">
+                  <span
+                    className={`summary-source-badge ${
+                      summarySource === "gemini" ? "summary-source-badge--gemini" : "summary-source-badge--fallback"
+                    }`}
+                  >
+                    {summarySource === "gemini" ? "Gemini Active" : "Fallback Mode"}
+                  </span>
+                </div>
               ) : null}
               {summaryRepos.length > 0 ? (
                 <div className="summary-repos">
