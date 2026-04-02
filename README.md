@@ -1,7 +1,30 @@
 # Github-Analyzer
 
-# LIVE DEMO : 
-https://v0-github-profile-summary.vercel.app/
+## Frontend
+
+The UI is now implemented in React JSX and mounted from `src/app.jsx`.
+
+## Run Locally
+
+1. Copy `.env.example` to `.env`
+2. Add your Gemini key in `.env` as `GEMINI_API_KEY=...`
+3. Start the app:
+
+```bash
+npm start
+```
+
+4. Open `http://localhost:3000`
+5. Analyze a profile and use **Generate Summary** for the AI-written profile breakdown
+
+## AI Summary Feature
+
+- Analyze any GitHub username
+- Click **Generate Summary** to get a structured AI explanation of:
+	- what the developer likely built
+	- key project themes
+	- coding language focus
+	- strength signals based on repository data
 
 🚀 GitHub Analyzer
 A lightweight, language-agnostic utility that scans GitHub repositories and generates actionable insights.

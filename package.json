@@ -1,0 +1,10 @@
+{
+  "name": "github-profile-analyzer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Professional GitHub profile analyzer with AI summary",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
